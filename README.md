@@ -52,6 +52,3 @@ LoadPlugin network
         Server "influxdb" "8086"
 </Plugin>
 ```
-
-### Monitor Nginx
-
