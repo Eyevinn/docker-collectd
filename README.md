@@ -49,6 +49,43 @@ and
 ```
 LoadPlugin network
 <Plugin network>
-        Server "influxdb" "8086"
+        Server "influxdb" "25826"
 </Plugin>
 ```
+
+Create the `collectd` database in Influx DB:
+
+```
+curl -X POST http://influxdb:8086/query --data-urlencode "q=CREATE DATABASE collectd"
+```
+
+And make sure you have the following in the Influx configuration
+
+```
+[collectd]
+enabled = true
+bind-address = ":25826"
+database = "collectd"
+typesdb = "/usr/share/collectd/types.db"
+```
+
+With Influx DB running as Docker Container the docker-compose configuration would be something like this:
+
+```
+version: '2'
+
+services:
+  influxdb:
+    restart: always
+    image: influxdb:latest
+    environment:
+      - INFLUXDB_COLLECTD_ENABLED=true
+      - INFLUXDB_COLLECTD_BIND_ADDRESS=:25826
+      - INFLUXDB_COLLECTD_DATABASE="collectd"
+      - INFLUXDB_COLLECTD_TYPESDB=/usr/local/share/collectd/types.db
+    volumes:
+      - /private/var/docker/influxdb:/var/lib/influxdb
+      - /private/var/docker/influxdb/collectd:/usr/local/share/collectd
+```
+
+and where the `types.db` file is located at `/private/var/docker/influxdb/collectd/types.db`
