@@ -81,7 +81,7 @@ services:
     environment:
       - INFLUXDB_COLLECTD_ENABLED=true
       - INFLUXDB_COLLECTD_BIND_ADDRESS=:25826
-      - INFLUXDB_COLLECTD_DATABASE="collectd"
+      - INFLUXDB_COLLECTD_DATABASE=collectd
       - INFLUXDB_COLLECTD_TYPESDB=/usr/local/share/collectd/types.db
     volumes:
       - /private/var/docker/influxdb:/var/lib/influxdb
