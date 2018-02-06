@@ -4,7 +4,7 @@ Docker Container for [collectd](https://collectd.org) - a system statistics coll
 
 ### Monitor DNS
 
-Collect statistics from a Bind (DNS) server and write to an Influx DB.
+Collect statistics from a Bind (DNS) server and write to an Influx DB to visualize in Grafana.
 
 Enable the statistics channel in bind first (named.conf):
 
